@@ -215,6 +215,7 @@ print(paste("The accruacy for test is", acc2))
 
 **[1] "The accuracy for test is 0.933333333333333"**
 
+<br/><br/>
 
 # Conclusion
 
