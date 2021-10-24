@@ -26,7 +26,7 @@ library(DataExplorer)
 plot_intro(df)
 ```
 ![image](https://user-images.githubusercontent.com/74638365/138602973-1f03452f-f5fe-4e7e-bb54-d78531f9295a.png)
-
+_High level data exploratory analysis_
 <br/><br/>
 
 ```{r}
@@ -34,7 +34,7 @@ plot_intro(df)
 complete.cases(df)
 ```
 ![2](https://user-images.githubusercontent.com/74638365/138603005-4fe405cf-373e-49c4-aad9-6ba14084aed4.PNG)
-
+_All rows complete, no missing values_
 
 <br/><br/>
 
@@ -54,11 +54,11 @@ get_dupes(df)
 ![carbon(2)](https://user-images.githubusercontent.com/74638365/138603077-0de91fa1-1a67-4f45-a392-e07868ffe253.png)
 ![image](https://user-images.githubusercontent.com/74638365/138603091-9c6e89ac-9316-48ed-b398-330b607c5e42.png)
 
-
 <br/><br/>
 
 ![carbon(3)](https://user-images.githubusercontent.com/74638365/138603127-b654447c-60b3-4468-8a33-e23ab03ea848.png)
 ![image](https://user-images.githubusercontent.com/74638365/138603137-f0c8212a-a664-454e-9f70-c3efed05300e.png)
+_Wine attributes correlation matrix_
 
 Noticeably strong linear relationship between "Flavanoids" and "Total Phenols"
 
@@ -102,6 +102,7 @@ dim(testing)
 ![carbon(5)](https://user-images.githubusercontent.com/74638365/138607941-50d78c2f-b2e3-41de-8305-3099a1979668.png)
 ![3](https://user-images.githubusercontent.com/74638365/138607959-9012971a-b7c8-47a7-85bd-c2d0f6238246.PNG)
 ![image](https://user-images.githubusercontent.com/74638365/138607968-c810c22f-1b2d-4cc3-be6f-d955c54953b1.png)
+_Decision tree model_
 
 <br/><br/>
 
@@ -114,11 +115,17 @@ plotcp(Dtree)
 ```
 ![4](https://user-images.githubusercontent.com/74638365/138607985-14718180-aa8b-4d85-a258-b2efc3d3ae20.PNG)
 ![image](https://user-images.githubusercontent.com/74638365/138607994-4112c9e8-d90a-4656-8b55-f79480ddeb43.png)
-
+_cross valitaed error summary_
 
 
 ![carbon(6)](https://user-images.githubusercontent.com/74638365/138608008-eeb52aff-14ee-46ef-be56-28aadca8b9a5.png)
 ![image](https://user-images.githubusercontent.com/74638365/138608017-a8de0f0a-8b6c-4c25-b16f-e1b2cbd07a2a.png)
+_Decision tree variable box plots_
+
+The decision tree model is functioning with three of the 13 predictor variables:
+* Color Intensity
+* Flavanoids
+* Proline
 
 <br/><br/>
 
@@ -134,6 +141,7 @@ confusion_mat
 1 | 13 | 0| 0 |
 2 | 1 | 18| 3 |
 3 | 0 | 0 | 10|
+_Multi-class classification confusion Matrix_
 
 ```{r}
 acc = sum(diag(confusion_mat)) / sum(confusion_mat)
