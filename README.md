@@ -63,7 +63,9 @@ get_dupes(df)
 Noticeably strong linear relationship between "Flavanoids" and "Total Phenols"
 
 ```{r}
-plot(df$Flavanoids, df$`Total phenols`)
+plot(df$Flavanoids, df$`Total phenols`,
+     xlab = "Flavanoids",
+     ylab = "Total Phenols")
 ```
 ![image](https://user-images.githubusercontent.com/74638365/138603232-1122630c-a1c4-469f-8d93-57da66ffb2cc.png)
 
