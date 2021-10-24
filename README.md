@@ -6,7 +6,7 @@
 
 ## Dataset
 
-![Data source URL](https://archive.ics.uci.edu/ml/datasets/Wine)
+[Data source URL](https://archive.ics.uci.edu/ml/datasets/Wine)
 
 This dataset is a compile of chemical and visual attributes of wines grown in the same region in Italy, but different types of cultivated varietals (cultivars). Cultivar is a subcategory below Species in biology. Cultivar is known to be a critical feature in wine production as it can affect everything about the product such as flavor profile, aroma, and aging potential. Some of the popular cultivars are Cabernet Sauvignon, Pinot Noir, Shiraz, and Riesling.
 
@@ -130,9 +130,9 @@ _Decision tree variable box plots_
 <br/>
 
 The decision tree model is functioning with three of the 13 predictor variables:
-* Color Intensity
-* Flavanoids
-* Proline
+1. Color Intensity
+2. Flavanoids
+3. Proline
 
 <br/><br/>
 
