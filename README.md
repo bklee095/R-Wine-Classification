@@ -1,7 +1,7 @@
 ![Wine_Cultivated_Varietal_Classification_](https://user-images.githubusercontent.com/74638365/138602134-e0ca7239-7c72-4541-b9c2-f29fe7343233.png)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/bklee095/R-Wine-Classification)
-# Italian Wine Cultivated Varietal Classification with Decision Tree
+# Italian Wine Cultivated Varietal Classification with Decision Tree and Grid Search
 
 
 ## Dataset
