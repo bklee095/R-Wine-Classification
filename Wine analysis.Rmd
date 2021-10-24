@@ -1,0 +1,233 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+df = read.table("wine.data", 
+                encoding = "UTF-16LE",
+                header = FALSE,
+                sep = ",")
+
+head(df)
+dim(df)
+summary(df)
+```
+
+```{r}
+# Renaming the variables
+
+names(df) = c("Cultivar", "Alcohol", "Malic acid", "Ash", 
+              "Alcalinity of ash", "Magnesium", "Total phenols",
+              "Flavanoids", "Nonflavanoid phenols", "Proanthocyanins", 
+              "Color intensity", "Hue", "OD280 diluted wines", "Proline")
+names(df)
+```
+
+```{r}
+library(dplyr)
+
+glimpse(df)
+
+df$Cultivar = as.factor(df$Cultivar)
+```
+
+```{r}
+library(DataExplorer)
+
+plot_intro(df)
+```
+
+```{r}
+# Missing values in the dataset
+complete.cases(df)
+```
+
+```{r}
+# Identify duplicate observations
+library(janitor)
+
+get_dupes(df)
+```
+
+
+
+
+```{r}
+library(tidyr)
+
+df %>%
+  gather(Attributes, value, 2:14) %>%
+  ggplot(aes(x = value, fill = Attributes)) +
+  geom_histogram(colour = "black", show.legend = F) +
+  facet_wrap(~ Attributes, scales = "free_x") +
+  labs(title = "Wines Attributes - Histogram set") +
+  theme_bw()
+```
+
+
+```{r}
+library(corrplot)
+
+datacorr = cor(df[, -c(1)], method = "spearman")
+corrplot(datacorr, type = "lower", 
+         method = "pie", 
+         diag = F,
+         addgrid = T)
+```
+
+Noticeably strong linear relationship between "Flavanoids" and "Total Phenols"
+
+```{r}
+plot(df$Flavanoids, df$`Total phenols`)
+```
+
+
+```{r}
+barplot(prop.table(table(df$Cultivar)),
+        col = rainbow(4),
+        ylim = c(0, 0.5),
+        main = "Response Variable Class Distribution")
+```
+
+
+
+
+
+
+
+```{r}
+# 75-25 split for random (sample()) training and testing set
+
+set.seed(2021)
+division = sort(sample(nrow(df), nrow(df) * 0.75))
+
+training = df[division,]
+testing = df[-division,]
+```
+
+
+```{r}
+dim(training)
+dim(testing)
+```
+
+```{r}
+library(rpart)
+
+Dtree = rpart(Cultivar~., 
+              data = training, 
+              method = "class")
+
+Dtree
+```
+
+```{r}
+library(rpart.plot)
+rpart.plot(Dtree, extra = 101)
+```
+
+```{r}
+printcp(Dtree)
+```
+
+```{r}
+plotcp(Dtree)
+```
+
+```{r}
+par(mfrow = c(1,2))
+
+boxplot(df$Flavanoids, df$`Color intensity`,
+        names = c("Flavanoids", "Color Intensity"),
+        horizontal = T, 
+        notch = T,
+        col = "red4")
+
+boxplot(df$Proline,
+        ylab = c("Proline"),
+        horizontal = T,
+        notch = T,
+        col = "red4")
+```
+
+
+```{r}
+prediction = predict(Dtree, testing, type = "class")
+
+confusion_mat = table(testing$Cultivar, prediction)
+confusion_mat
+```
+
+
+```{r}
+acc = sum(diag(confusion_mat)) / sum(confusion_mat)
+acc
+```
+
+
+
+
+
+
+
+
+```{r}
+library(tidyverse)
+
+gridsearch = list(minsplit = c(seq(5, 20, 5)),
+                  minbucket = c(seq(5, 20, 5)),
+                  maxdepth = c(seq(1, 4, 1))) %>%
+  cross_df()
+
+gridsearch
+```
+
+```{r}
+part = function(...){
+  rpart(Cultivar~.,
+        data = training,
+        control = rpart.control(...))
+  }
+```
+
+
+```{r}
+gridsearch = gridsearch %>% mutate(fit = pmap(gridsearch, part))
+gridsearch
+```
+
+```{r}
+accuracy = function(fit, test_var, test_lab) {
+  pred = predict(fit, test_var, type = "class")
+  mean(pred == test_lab)
+}
+```
+
+```{r}
+test_var = testing[, -c(1)]
+test_lab = testing$Cultivar
+
+gridsearch = gridsearch %>%
+  mutate(acc = map_dbl(fit, 
+                       accuracy, 
+                       test_var, 
+                       test_lab))
+
+gridsearch
+```
+
+```{r}
+gridsearch = gridsearch %>% arrange(desc(acc), desc())
+gridsearch
+```
+
+
+```{r}
+prp(gridsearch$fit[[4]])
+```
+
+```{r}
+rpart.plot(Dtree, extra = 101)
+```
+
