@@ -26,6 +26,7 @@ library(DataExplorer)
 plot_intro(df)
 ```
 ![image](https://user-images.githubusercontent.com/74638365/138602973-1f03452f-f5fe-4e7e-bb54-d78531f9295a.png)
+
 _High level data exploratory analysis_
 <br/><br/>
 
@@ -34,6 +35,7 @@ _High level data exploratory analysis_
 complete.cases(df)
 ```
 ![2](https://user-images.githubusercontent.com/74638365/138603005-4fe405cf-373e-49c4-aad9-6ba14084aed4.PNG)
+
 _All rows complete, no missing values_
 
 <br/><br/>
@@ -58,6 +60,7 @@ get_dupes(df)
 
 ![carbon(3)](https://user-images.githubusercontent.com/74638365/138603127-b654447c-60b3-4468-8a33-e23ab03ea848.png)
 ![image](https://user-images.githubusercontent.com/74638365/138603137-f0c8212a-a664-454e-9f70-c3efed05300e.png)
+
 _Wine attributes correlation matrix_
 
 Noticeably strong linear relationship between "Flavanoids" and "Total Phenols"
@@ -102,6 +105,7 @@ dim(testing)
 ![carbon(5)](https://user-images.githubusercontent.com/74638365/138607941-50d78c2f-b2e3-41de-8305-3099a1979668.png)
 ![3](https://user-images.githubusercontent.com/74638365/138607959-9012971a-b7c8-47a7-85bd-c2d0f6238246.PNG)
 ![image](https://user-images.githubusercontent.com/74638365/138607968-c810c22f-1b2d-4cc3-be6f-d955c54953b1.png)
+
 _Decision tree model_
 
 <br/><br/>
@@ -115,12 +119,15 @@ plotcp(Dtree)
 ```
 ![4](https://user-images.githubusercontent.com/74638365/138607985-14718180-aa8b-4d85-a258-b2efc3d3ae20.PNG)
 ![image](https://user-images.githubusercontent.com/74638365/138607994-4112c9e8-d90a-4656-8b55-f79480ddeb43.png)
-_cross valitaed error summary_
+
+_cross validated error summary_
 
 
 ![carbon(6)](https://user-images.githubusercontent.com/74638365/138608008-eeb52aff-14ee-46ef-be56-28aadca8b9a5.png)
 ![image](https://user-images.githubusercontent.com/74638365/138608017-a8de0f0a-8b6c-4c25-b16f-e1b2cbd07a2a.png)
+
 _Decision tree variable box plots_
+<br/>
 
 The decision tree model is functioning with three of the 13 predictor variables:
 * Color Intensity
@@ -141,20 +148,28 @@ confusion_mat
 1 | 13 | 0| 0 |
 2 | 1 | 18| 3 |
 3 | 0 | 0 | 10|
+
 _Multi-class classification confusion Matrix_
 
 ```{r}
 acc = sum(diag(confusion_mat)) / sum(confusion_mat)
 print(paste("The accruacy for test is", acc))
 ```
-**[1] "The accruacy for test is 0.911111111111111"**
+**[1] "The accuracy for test is 0.911111111111111"**
 
 <br/><br/>
 
 ## Hyperparameter tuning
 
+Choosing a set of optimal hyperparameters for the learning algorithm. 
+Aiming to obtain a classification accuracy higher than 0.9111.
+
 ![carbon(7)](https://user-images.githubusercontent.com/74638365/138608248-c36df4b7-afef-4323-b405-e08e88ad2914.png)
 ![5](https://user-images.githubusercontent.com/74638365/138608276-4ee6a9de-cfdb-42d1-a6a4-ab19ba069a91.PNG)
+
+- minsplit: Set the minimum number of observations in the node before the algorithm perform a split
+- minbucket:  Set the minimum number of observations in the final note i.e. the leaf
+- maxdepth: Set the maximum depth of any node of the final tree. The root node is treated a depth 0
 
 <br/><br/>
 
@@ -176,7 +191,7 @@ gridsearch
 
 <br/><br/>
 ```{r}
-# Selecting the set of hyperparameters with the highest accuracy and minsplit
+# Selecting the set of hyperparameters with the lowest max split, highest accuracy and minsplit
 prp(gridsearch$fit[[4]])
 ```
 ![image](https://user-images.githubusercontent.com/74638365/138608476-cfebf559-f305-49c4-9c63-bb027ceab050.png)
@@ -198,7 +213,7 @@ acc2 = sum(diag(confusion_mat2)) / sum(confusion_mat2)
 print(paste("The accruacy for test is", acc2))
 ```
 
-**[1] "The accruacy for test is 0.933333333333333"**
+**[1] "The accuracy for test is 0.933333333333333"**
 
 
 # Conclusion
