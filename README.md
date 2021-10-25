@@ -184,7 +184,7 @@ Aiming to obtain a classification accuracy higher than 0.9111.
 <br/><br/>
 
 ```{r}
-gridsearch = gridsearch %>% arrange(desc(acc), desc())
+gridsearch = gridsearch %>% arrange(desc(acc))
 gridsearch
 ```
 ![8](https://user-images.githubusercontent.com/74638365/138608445-94d21e51-f271-4592-b3ba-0fe17ea012e9.PNG)
