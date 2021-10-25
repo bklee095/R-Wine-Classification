@@ -46,7 +46,7 @@ library(janitor)
 
 get_dupes(df)
 ```
-[1] No duplicate combinations found of: Cultivar, Alcohol, Malic acid, Ash, Alcalinity of ash, Magnesium, Total phenols, Flavanoids, Nonflavanoid phenols, ... and 5 other variables
+[1] No duplicate combinations found of: Cultivar, Alcohol, Malic acid, Ash, Alcalinity of ash, Magnesium, Total phenols, Flavonoids, Nonflavonoid phenols, ... and 5 other variables
 
 
 <br/><br/>
@@ -63,11 +63,11 @@ get_dupes(df)
 
 _Wine attributes correlation matrix_
 
-Noticeably strong linear relationship between "Flavanoids" and "Total Phenols"
+Noticeably strong linear relationship between "Flavonoids" and "Total Phenols"
 
 ```{r}
-plot(df$Flavanoids, df$`Total phenols`,
-     xlab = "Flavanoids",
+plot(df$Flavonoids, df$`Total phenols`,
+     xlab = "Flavonoids",
      ylab = "Total Phenols")
 ```
 ![image](https://user-images.githubusercontent.com/74638365/138603232-1122630c-a1c4-469f-8d93-57da66ffb2cc.png)
@@ -131,8 +131,8 @@ _Decision tree variable box plots_
 
 The decision tree model is functioning with 3 of the 13 predictor variables:
 1. Color Intensity
-2. Flavanoids
-3. Proline
+2. Flavonoids (a type of plant compounds) 
+3. Proline (a type of amino acid)
 
 <br/><br/>
 
@@ -223,3 +223,4 @@ Decision tree is a simple, intuitive, and interpretable machine learning algorit
 
 The original decision tree with default rpart() function settings yielded accuracy level of 0.9111. While this is still a superb performance, grid search was deployed in order to seek for a better hyperparameter setting for the model. Tuning the parameters provided a few options where the accuracy increased by about 0.0222.
 
+Additionally, observing the decision tree diagram explains why this model could perform so well with this dataset. The first split uses the variable _color intensity_, which categorizes most of the lighter colored wines to cultivar #2. After that, the rest of the observations are split using the _flavonoids_ level, where the wines with lower flavonoids level are all identified as cultivar #3. Lastly, the _Proline_ level is used the categorize the remainder of the observations, where the cases with higher proline level are categorized as cultivar #1. The dataset was rather clear cut with a small amount of outliers and clear trends, therefore, even a simple supervised machine learning algorithm could yield high classification accuracy.
