@@ -106,7 +106,7 @@ dim(testing)
 ![3](https://user-images.githubusercontent.com/74638365/138607959-9012971a-b7c8-47a7-85bd-c2d0f6238246.PNG)
 ![image](https://user-images.githubusercontent.com/74638365/138607968-c810c22f-1b2d-4cc3-be6f-d955c54953b1.png)
 
-_Decision tree model_
+_Decision tree visualization_
 
 <br/><br/>
 
@@ -129,7 +129,7 @@ _cross validated error summary_
 _Decision tree variable box plots_
 <br/>
 
-The decision tree model is functioning with three of the 13 predictor variables:
+The decision tree model is functioning with 3 of the 13 predictor variables:
 1. Color Intensity
 2. Flavanoids
 3. Proline
@@ -219,4 +219,7 @@ print(paste("The accruacy for test is", acc2))
 
 # Conclusion
 
+Decision tree is a simple, intuitive, and interpretable machine learning algorithm. Essentially using only a small subset of the given attributes, it is generally inexpensive in computational costs. Additionally, one of the biggest fortes of logic-based algorithms such as decision tree is that it isn't sensitive to outliers. The outliers end up in one of the nodes as an independent case, not swaying the model's generality.
+
+The original decision tree with default rpart() function settings yielded accuracy level of 0.9111. While this is still a superb performance, grid search was deployed in order to seek for a better hyperparameter setting for the model. Tuning the parameters provided a few options where the accuracy increased by about 0.0222.
 
